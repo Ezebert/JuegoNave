@@ -7,12 +7,13 @@ int main()
     //INICIALIZACION
     //INICIALIZACION -> VENTANA
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION");
+    
     window.setFramerateLimit(60);
 
     //INICIALIZACION -> NAVE
 
     clsPlayer _nave;
-
+    _nave.setY(window.getSize().x/2, window.getSize().y*0.8);
 
     /*
     sf::CircleShape shape(100.f);
@@ -42,7 +43,7 @@ int main()
         //=== GAME LOOP = DIBUJOS ===
         
         //window.draw(_personaje);
-        _nave.draw(window);
+        window.draw(_nave);
 
         //=== GAME LOOP DISPPLAY FLIP ===
         window.display();
