@@ -2,7 +2,7 @@
 
 int main()
 {
-    //INICIALIZACION 
+    //INICIALIZACION
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION");
     sf::Sprite _personaje;
     sf::Texture _personajeTextura;
@@ -15,6 +15,8 @@ int main()
     shape.setFillColor(sf::Color::Green);
 
     */
+
+
 
     //GAME LOOP
     while (window.isOpen())
