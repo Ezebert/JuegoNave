@@ -32,7 +32,19 @@ int main()
                 window.close();
         }
         //=== Comandos ¿Que se apreto? ===
-        
+        float velocidad = 0.04;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down  )) {
+            _personaje.move(0, velocidad);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            _personaje.move(0, -velocidad);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            _personaje.move(velocidad, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            _personaje.move(-velocidad, 0);
+        }
         //==== GAME LOOP _ UPDATE ===
         window.clear();
 
