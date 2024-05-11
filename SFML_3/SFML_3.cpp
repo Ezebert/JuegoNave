@@ -3,10 +3,13 @@
 int main()
 {
     //INICIALIZACION
+    //INICIALIZACION -> VENTANA
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION");
+
+    //INICIALIZACION -> NAVE
     sf::Sprite _personaje;
     sf::Texture _personajeTextura;
-    _personajeTextura.loadFromFile("../img/nave.png");
+    _personajeTextura.loadFromFile("../img/file.png");
     _personaje.setTexture(_personajeTextura);
 
 
@@ -21,21 +24,22 @@ int main()
     //GAME LOOP
     while (window.isOpen())
     {
-        //=GAME LOOP _ COMANDOS
-
+        // === Perifericos de entradas ===
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        //=GAME LOOP _ UPDATE
+        //=== Comandos ¿Que se apreto? ===
+        
+        //==== GAME LOOP _ UPDATE ===
         window.clear();
 
-        //= GAME LOOP = DIBUJOS 
+        //=== GAME LOOP = DIBUJOS ===
         window.draw(_personaje);
 
-        //===GAME LOOP DISPPLAY FLIP
+        //=== GAME LOOP DISPPLAY FLIP ===
         window.display();
     }
 
