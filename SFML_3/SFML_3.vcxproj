@@ -132,13 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="clsPlayer.cpp" />
     <ClCompile Include="SFML_3.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Windows.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Windows.h" />
+    <ClInclude Include="clsPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

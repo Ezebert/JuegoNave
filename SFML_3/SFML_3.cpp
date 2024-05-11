@@ -1,16 +1,17 @@
 #include <SFML/Graphics.hpp>
+#include "clsPlayer.h"
+#include <Windows.h>
 
 int main()
 {
     //INICIALIZACION
     //INICIALIZACION -> VENTANA
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION");
+    window.setFramerateLimit(60);
 
     //INICIALIZACION -> NAVE
-    sf::Sprite _personaje;
-    sf::Texture _personajeTextura;
-    _personajeTextura.loadFromFile("../img/file.png");
-    _personaje.setTexture(_personajeTextura);
+
+    clsPlayer _nave;
 
 
     /*
@@ -31,25 +32,17 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        //=== Comandos ¿Que se apreto? ===
-        float velocidad = 0.04;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down  )) {
-            _personaje.move(0, velocidad);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            _personaje.move(0, -velocidad);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            _personaje.move(velocidad, 0);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            _personaje.move(-velocidad, 0);
-        }
+        
+
         //==== GAME LOOP _ UPDATE ===
+
+        _nave.upDate();
         window.clear();
 
         //=== GAME LOOP = DIBUJOS ===
-        window.draw(_personaje);
+        
+        //window.draw(_personaje);
+        _nave.draw(window);
 
         //=== GAME LOOP DISPPLAY FLIP ===
         window.display();
