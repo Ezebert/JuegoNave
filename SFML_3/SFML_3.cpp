@@ -1,19 +1,25 @@
 #include <SFML/Graphics.hpp>
-#include "clsPlayer.h"
 #include <Windows.h>
+#include <ctime>
+#include <cstdio>
 
+
+
+#include "clsPlayer.h"
+#include "clsAsteroide.h"
 int main()
 {
     //INICIALIZACION
+    std::srand((unsigned)std::time(0)   );
     //INICIALIZACION -> VENTANA
-    sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION");
-    
+    sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION"); 
     window.setFramerateLimit(60);
 
     //INICIALIZACION -> NAVE
 
-    clsPlayer _nave;
-    _nave.setY(window.getSize().x/2, window.getSize().y*0.8);
+    clsPlayer _nave(window.getSize().x / 2, window.getSize().y * 0.8); //X = Mitad de Pantalla ; Y = 1/3 de Pantalla aprox
+    //clsAsteroide _asteroide;
+    clsAsteroide _asteroide;
 
     /*
     sf::CircleShape shape(100.f);
@@ -36,14 +42,16 @@ int main()
         
 
         //==== GAME LOOP _ UPDATE ===
-
         _nave.upDate();
+        _asteroide.upDate();
+
         window.clear();
 
         //=== GAME LOOP = DIBUJOS ===
         
         //window.draw(_personaje);
         window.draw(_nave);
+        window.draw(_asteroide);
 
         //=== GAME LOOP DISPPLAY FLIP ===
         window.display();

@@ -8,9 +8,11 @@ private:
 	float _vel;
 public:
 	clsPlayer();
-	void upDate();
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void setY(int ,int);
-
+	clsPlayer(int, int); // Contructor setX() and setY()
+	void upDate(); //Actualizar
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override; //Dibujar
+protected:
+	void isPress(); // Tecla Presionada
+	void controlExtreme();// Controla los extremos de la pantalla
 };
 
