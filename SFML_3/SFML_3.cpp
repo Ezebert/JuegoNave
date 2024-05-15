@@ -15,11 +15,11 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION"); 
     window.setFramerateLimit(60);
 
-    //INICIALIZACION -> NAVE
-
-    clsPlayer _nave(window.getSize().x / 2, window.getSize().y * 0.8); //X = Mitad de Pantalla ; Y = 1/3 de Pantalla aprox
+    //INICIALIZACION -> NAVE    
+  
     //clsAsteroide _asteroide;
-    clsAsteroide _asteroide;
+    clsPlayer _nave(window.getSize().x / 2, window.getSize().y * 0.8); //X = Mitad de Pantalla ; Y = 1/3 de Pantalla aprox
+    clsAsteroide _asteroide(200,500);
 
     /*
     sf::CircleShape shape(100.f);
