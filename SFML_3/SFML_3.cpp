@@ -1,16 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
+//ramddom
 #include <ctime>
-#include <cstdio>
-
-
-
+#include <stdlib.h>
+//Archivos .h
 #include "clsPlayer.h"
 #include "clsAsteroide.h"
 int main()
 {
     //INICIALIZACION
-    std::srand((unsigned)std::time(0)   );
+    std::srand((unsigned)std::time(0)); //Plantar la semilla 
     //INICIALIZACION -> VENTANA
     sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION"); 
     window.setFramerateLimit(60);
@@ -19,16 +18,14 @@ int main()
   
     //clsAsteroide _asteroide;
     clsPlayer _nave(window.getSize().x / 2, window.getSize().y * 0.8); //X = Mitad de Pantalla ; Y = 1/3 de Pantalla aprox
-    clsAsteroide _asteroide(200,500);
+    clsAsteroide _asteroide;
+    //_asteroide.createRandom(window.getSize().x);
 
     /*
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
     */
-
-
-
     //GAME LOOP
     while (window.isOpen())
     {

@@ -2,17 +2,24 @@
 
 clsPlayer::clsPlayer()
 {
+	//Inicializo textura
 	_texture.loadFromFile("../img/nave.png");
+	//Inicializo sprite
 	_sprite.setTexture(_texture);
+
+	//Inicializo Variables
 	_vel = 10;
 }
 
 clsPlayer::clsPlayer(int x, int y)
 {
+	//Inicializo textura
 	_texture.loadFromFile("../img/nave.png");
+	//Inicializo sprite
 	_sprite.setTexture(_texture);
+	_sprite.setPosition(x,y);
+	//Inicializo Variables
 	_vel = 10;
-	_sprite.setPosition(x, y);
 }
 
 void clsPlayer::upDate()

@@ -11,7 +11,6 @@ public:
 	clsAsteroide(int,int);
 	void upDate();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-protected:
-	void createRandom(int x, int y);
+	void createRandom(sf::RenderWindow);
 };
 
