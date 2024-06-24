@@ -9,8 +9,11 @@
 
 int main()
 {
-    //Init
+    //Init srand
+    srand(static_cast<unsigned>(time(NULL)));
+    //Init Game
     gamePlay game; 
+
     //Game Loop
     while (game.runnig())
     {

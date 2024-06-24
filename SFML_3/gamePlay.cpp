@@ -4,7 +4,7 @@
 
 gamePlay::gamePlay()
 {
-    this->initialVariables();
+    this->initVariables();
     this->initWindows();
     this->initEnemy();
 }
@@ -19,7 +19,7 @@ void gamePlay::update()
   this->updateEvent(); //PoolEvents
 
   this->updateMousePosition();
-  this->upodateEnemy();
+  this->updateEnemy();
 
 
 }
@@ -28,9 +28,8 @@ void gamePlay::render(){
     // Clear - Render(draw) - Display 
     this->window->clear();
     //Draw obj
-    this->window->draw(this->enemy);
-
-
+    //this->window->draw(this->enemy);
+    this->drawEnemies();
     this->window->display();
 }
 //======    ACCESSORS    ======i
@@ -39,15 +38,22 @@ const bool gamePlay::runnig() const {
 }
 void gamePlay::spawnEnemy()
 {
-
+    this->enemy.setPosition(
+        static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->enemy.getSize().x)),
+        static_cast<float>(rand() % static_cast<int>(this->window->getSize().y - this->enemy.getSize().y))
+            );
+    this->enemy.setFillColor(sf::Color::Yellow);
+    //Add enemy 
+    this->enemies.push_back(this->enemy);
 }
 //======    INIT    ======
 void gamePlay::initVariables(){
 	this->window = nullptr;
     //Game Logic
     this->points=0;
-    this->enemySpawnTimer = 0.f;
     this->enemySpawnTimerMax = 1000.f;;
+    this->enemySpawnTimer = this->enemySpawnTimerMax;
+    
     this->maxEnemy = 5;
 
 }
@@ -63,8 +69,7 @@ void gamePlay::initEnemy()
     this->enemy.setPosition(20.f,10.f);//(x , y)
     this->enemy.setSize(sf::Vector2f(100.f,100.f));
     this->enemy.setScale(sf::Vector2f(0.5f,0.5f)); //reduce tamaño
-    this->enemy.setFillColor(sf::Color::Red
-    );//cuerpo
+    this->enemy.setFillColor(sf::Color::Red);//cuerpo
     this->enemy.setOutlineColor(sf::Color::Green);//contorno
     this->enemy.setOutlineThickness(10.f); // Grosor del contorno
 }
@@ -107,4 +112,32 @@ void gamePlay::updateMousePosition()
     //Update Mouse Position relativa  de windows vector2i
     std::cout << "Mouse pos: " << sf::Mouse::getPosition(*this->window).x << " " << sf::Mouse::getPosition(*this->window).y << " \n";
     this->mousePosWindows = sf::Mouse::getPosition(*this->window);
+}
+
+void gamePlay::updateEnemy()
+{
+    /*Actualiza el temporizador de aparición de enemigos 
+    y genera enemigos cuando la cantidad total de enemigos es menor que el máximo*/
+
+    if (this->enemies.size() < this->maxEnemy) {
+        if (this->enemySpawnTimer>=this->enemySpawnTimerMax) {
+            this->spawnEnemy();
+            this->enemySpawnTimer = 0.f;
+        }
+        else
+        {
+            this->enemySpawnTimer += 1.f;
+        }
+    }
+    //Move the enemies
+    for (auto& e : this->enemies) {
+        e.move(0.f, 5.f);
+    }
+}
+
+void gamePlay::drawEnemies()
+{
+    for (auto& e : this->enemies) {
+        this->window->draw(e);
+    }
 }

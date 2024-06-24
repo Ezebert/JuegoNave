@@ -39,7 +39,9 @@ protected:
 	//Update
 	void updateEvent();
 	void updateMousePosition();
-	void upodateEnemy();
+	void updateEnemy();
+	//Draw
+	void drawEnemies();
 	
 
 };
