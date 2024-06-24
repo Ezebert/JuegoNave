@@ -11,9 +11,16 @@ private:
 	sf::RenderWindow* window;
 	sf::Event event;
 	sf::VideoMode videoMode;
-	//Clases
+	//Mouse Posicion
+	sf::Vector2i mousePosWindows;
+	//Game Clases
+	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
-
+	//Game Logic
+	int points; 
+	float enemySpawnTimer;
+	float enemySpawnTimerMax;
+	int maxEnemy;
 public:
 	//Constructor y Destructor
 	gamePlay();
@@ -22,14 +29,17 @@ public:
 	void update();
 	void render();
 	const bool runnig()const;
+	void spawnEnemy();
 
 protected:
 	//init
-	void initialVariables();
+	void initVariables();
 	void initWindows();
 	void initEnemy();
 	//Update
 	void updateEvent();
+	void updateMousePosition();
+	void upodateEnemy();
 	
 
 };
