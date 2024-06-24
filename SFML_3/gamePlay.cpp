@@ -52,7 +52,7 @@ void gamePlay::initEnemy()
     this->enemy.setPosition(20.f,10.f);//(x , y)
     this->enemy.setSize(sf::Vector2f(100.f,100.f));
     this->enemy.setScale(sf::Vector2f(0.5f,0.5f)); //reduce tamaño
-    this->enemy.setFillColor(sf::Color::Cyan);//cuerpo
+    this->enemy.setFillColor(sf::Color::Red);//cuerpo
     this->enemy.setOutlineColor(sf::Color::Green);//contorno
     this->enemy.setOutlineThickness(10.f); // Grosor del contorno
 }
