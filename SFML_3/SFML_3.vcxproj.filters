@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SFML_3.cpp">
+    <ClCompile Include="SFML.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="clsPlayer.cpp">

@@ -6,7 +6,7 @@ clsPlayer::clsPlayer()
 	_texture.loadFromFile("../img/nave.png");
 	//Inicializo sprite
 	_sprite.setTexture(_texture);
-
+	_sprite.setPosition(100, 100);
 	//Inicializo Variables
 	_vel = 10;
 }
@@ -17,7 +17,9 @@ clsPlayer::clsPlayer(int x, int y)
 	_texture.loadFromFile("../img/nave.png");
 	//Inicializo sprite
 	_sprite.setTexture(_texture);
-	_sprite.setPosition(x,y);
+	_sprite.setPosition(
+						x / 2 - _sprite.getGlobalBounds().width/2,
+						y / 2 * 0.8 - _sprite.getGlobalBounds().height / 2);
 	//Inicializo Variables
 	_vel = 10;
 }
@@ -33,22 +35,23 @@ void clsPlayer::upDate()
 //DIBUJA el SPRITE
 void clsPlayer::draw(sf::RenderTarget& target, sf::RenderStates states)const
 {
+
 	target.draw(_sprite,states);
 }
 
 void clsPlayer::isPress()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		_sprite.move(0, -_vel);
+		move(1,0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		_sprite.move(-_vel, 0);
+		_sprite.move(-1, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		_sprite.move(0, _vel);
+		_sprite.move(0, 1);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		_sprite.move(_vel, 0);
+		_sprite.move(1, 0);
 	}
 }
 

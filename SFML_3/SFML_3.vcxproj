@@ -134,7 +134,7 @@
   <ItemGroup>
     <ClCompile Include="clsAsteroide.cpp" />
     <ClCompile Include="clsPlayer.cpp" />
-    <ClCompile Include="SFML_3.cpp" />
+    <ClCompile Include="SFML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsAsteroide.h" />
