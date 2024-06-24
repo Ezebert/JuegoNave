@@ -11,6 +11,8 @@ private:
 	sf::RenderWindow* window;
 	sf::Event event;
 	sf::VideoMode videoMode;
+	//Clases
+	sf::RectangleShape enemy;
 
 public:
 	//Constructor y Destructor
@@ -22,8 +24,11 @@ public:
 	const bool runnig()const;
 
 protected:
+	//init
 	void initialVariables();
 	void initWindows();
+	void initEnemy();
+	//Update
 	void updateEvent();
 	
 

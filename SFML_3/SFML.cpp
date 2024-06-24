@@ -9,15 +9,14 @@
 
 int main()
 {
-    /*
-    //Windows
-    sf::RenderWindow window(sf::VideoMode(800, 600), "GAME -  MAIN");
-    */
+    //Init
     gamePlay game; 
-    //GAME LOOP
+    //Game Loop
     while (game.runnig())
     {
+        //Update
         game.update();
+        //Render
         game.render();
     }
 
