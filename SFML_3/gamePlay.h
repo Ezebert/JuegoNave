@@ -13,11 +13,13 @@ private:
 	sf::VideoMode videoMode;
 	//Mouse Posicion
 	sf::Vector2i mousePosWindows;
+	sf::Vector2f mousePosView;
+	
 	//Game Clases
 	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
 	//Game Logic
-	int points; 
+	float points; 
 	float enemySpawnTimer;
 	float enemySpawnTimerMax;
 	int maxEnemy;

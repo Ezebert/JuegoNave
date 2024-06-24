@@ -40,7 +40,8 @@ void gamePlay::spawnEnemy()
 {
     this->enemy.setPosition(
         static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->enemy.getSize().x)),
-        static_cast<float>(rand() % static_cast<int>(this->window->getSize().y - this->enemy.getSize().y))
+        0.f
+//        static_cast<float>(rand() % static_cast<int>(this->window->getSize().y - this->enemy.getSize().y))
             );
     this->enemy.setFillColor(sf::Color::Yellow);
     //Add enemy 
@@ -51,7 +52,7 @@ void gamePlay::initVariables(){
 	this->window = nullptr;
     //Game Logic
     this->points=0;
-    this->enemySpawnTimerMax = 1000.f;;
+    this->enemySpawnTimerMax = 10.f;;
     this->enemySpawnTimer = this->enemySpawnTimerMax;
     
     this->maxEnemy = 5;
@@ -79,7 +80,7 @@ void gamePlay::updateEvent()
     
     while (this->window->pollEvent(this->event)) {
         if (this->event.type == sf::Event::Closed ) {
-            std::cout << "Salir";
+            std::cout << "Points "<<this->points << "\n";
             this->window->close();
         }
 
@@ -112,6 +113,7 @@ void gamePlay::updateMousePosition()
     //Update Mouse Position relativa  de windows vector2i
     std::cout << "Mouse pos: " << sf::Mouse::getPosition(*this->window).x << " " << sf::Mouse::getPosition(*this->window).y << " \n";
     this->mousePosWindows = sf::Mouse::getPosition(*this->window);
+    this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindows);//posición convertida en coordenadas del mundo 2D
 }
 
 void gamePlay::updateEnemy()
@@ -129,9 +131,26 @@ void gamePlay::updateEnemy()
             this->enemySpawnTimer += 1.f;
         }
     }
+
     //Move the enemies
-    for (auto& e : this->enemies) {
-        e.move(0.f, 5.f);
+    for(int i = 0 ; i<enemies.size();i++){
+        bool deleted = false;
+        //move
+        this->enemies[i].move(0.f, 1.f);
+        //Check if clicked upon
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (this->enemies[i].getGlobalBounds().contains(this->mousePosView)) {
+                deleted = true;
+                //win point
+                this->points += 10.f;
+            }
+        }
+        //Out Screen
+        if (this->enemies[i].getPosition().y > this->window->getPosition().y)
+            deleted = true;
+        //Delete  Enemy
+        if (deleted)
+            this->enemies.erase(this->enemies.begin() + i);
     }
 }
 
