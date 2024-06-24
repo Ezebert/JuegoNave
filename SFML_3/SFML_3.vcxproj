@@ -134,11 +134,13 @@
   <ItemGroup>
     <ClCompile Include="clsAsteroide.cpp" />
     <ClCompile Include="clsPlayer.cpp" />
+    <ClCompile Include="gamePlay.cpp" />
     <ClCompile Include="SFML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsAsteroide.h" />
     <ClInclude Include="clsPlayer.h" />
+    <ClInclude Include="gamePlay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

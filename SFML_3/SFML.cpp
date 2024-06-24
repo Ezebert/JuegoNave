@@ -5,37 +5,20 @@
 #include <ctime>
 #include <stdlib.h>
 //Archivos .h
-#include "GamePlay.h"
-
+#include "gamePlay.h"
 
 int main()
 {
+    /*
     //Windows
-    sf::RenderWindow window(sf::VideoMode(800, 600), "JUEGO EN CONSTRUCCION" ); 
-    window.setFramerateLimit(60);
-    sf::Event event;
-
+    sf::RenderWindow window(sf::VideoMode(800, 600), "GAME -  MAIN");
+    */
+    gamePlay game; 
     //GAME LOOP
-    while (window.isOpen())
+    while (game.runnig())
     {
-        // === Perifericos de entradas ===
-        while (window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape)
-                    window.close();
-                break;
-            default:
-                break;
-            }
-        }
-        window.clear();
-        window.display();           
+        game.update();
+        game.render();
     }
 
     return 0;
