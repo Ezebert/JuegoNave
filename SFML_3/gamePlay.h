@@ -19,21 +19,30 @@ private:
 	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
 	//Game Logic
+	bool endGame;
+	int health;
 	float points; 
 	float enemySpawnTimer;
 	float enemySpawnTimerMax;
 	int maxEnemy;
+	bool mouseHead;
 public:
 	//Constructor y Destructor
 	gamePlay();
 	virtual ~gamePlay();
+	//Sets & Gets
+	void setPoints(float p);
+	float  getPoints();
 	//Funciones
 	void update();
 	void render();
+	//Accesorios
 	const bool runnig()const;
-	void spawnEnemy();
+	const bool getEndGame()const;
 
 protected:
+	//Funciones Aux
+	void spawnEnemy();
 	//init
 	void initVariables();
 	void initWindows();
@@ -44,7 +53,6 @@ protected:
 	void updateEnemy();
 	//Draw
 	void drawEnemies();
-	
 
 };
 

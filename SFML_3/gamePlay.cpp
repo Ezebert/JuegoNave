@@ -13,14 +13,28 @@ gamePlay::~gamePlay()
 {
 	delete this->window;
 }
+//======    SETS    ======
+void gamePlay::setPoints(float p)
+{
+    this->points = p;
+}
 
+//======    GETS    ======
+float gamePlay::getPoints()
+{
+    return this->points;
+}
+//======    FUNCIONES    ======
 void gamePlay::update()
 {
   this->updateEvent(); //PoolEvents
 
   this->updateMousePosition();
   this->updateEnemy();
-
+  
+  //End Game condition
+  if (this->health <= 0)
+      this->endGame = true;
 
 }
 
@@ -32,10 +46,18 @@ void gamePlay::render(){
     this->drawEnemies();
     this->window->display();
 }
-//======    ACCESSORS    ======i
-const bool gamePlay::runnig() const { 	
+
+//======    ACCESSORIOS    ======
+const bool gamePlay::runnig() const {
     return this->window->isOpen();
 }
+
+const bool gamePlay::getEndGame() const
+{
+    return this->endGame;
+}
+
+//======    FUNCIONES AUX    ======
 void gamePlay::spawnEnemy()
 {
     this->enemy.setPosition(
@@ -51,11 +73,13 @@ void gamePlay::spawnEnemy()
 void gamePlay::initVariables(){
 	this->window = nullptr;
     //Game Logic
+    this->endGame = false;
+    this->health = 10;
     this->points=0;
     this->enemySpawnTimerMax = 10.f;;
     this->enemySpawnTimer = this->enemySpawnTimerMax;
-    
     this->maxEnemy = 5;
+    this->mouseHead = false;
 
 }
 void gamePlay::initWindows(){
@@ -107,15 +131,13 @@ void gamePlay::updateEvent()
     }
     */
 }
-
 void gamePlay::updateMousePosition()
 {
     //Update Mouse Position relativa  de windows vector2i
-    std::cout << "Mouse pos: " << sf::Mouse::getPosition(*this->window).x << " " << sf::Mouse::getPosition(*this->window).y << " \n";
+    //std::cout << "Mouse pos: " << sf::Mouse::getPosition(*this->window).x << " " << sf::Mouse::getPosition(*this->window).y << " \n";
     this->mousePosWindows = sf::Mouse::getPosition(*this->window);
     this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindows);//posición convertida en coordenadas del mundo 2D
 }
-
 void gamePlay::updateEnemy()
 {
     /*Actualiza el temporizador de aparición de enemigos 
@@ -134,26 +156,42 @@ void gamePlay::updateEnemy()
 
     //Move the enemies
     for(int i = 0 ; i<enemies.size();i++){
-        bool deleted = false;
         //move
-        this->enemies[i].move(0.f, 1.f);
-        //Check if clicked upon
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (this->enemies[i].getGlobalBounds().contains(this->mousePosView)) {
-                deleted = true;
-                //win point
-                this->points += 10.f;
-            }
-        }
+        this->enemies[i].move(0.f, 5.f);
         //Out Screen
-        if (this->enemies[i].getPosition().y > this->window->getPosition().y)
-            deleted = true;
-        //Delete  Enemy
-        if (deleted)
+        if (this->enemies[i].getPosition().y > this->window->getSize().y) {
             this->enemies.erase(this->enemies.begin() + i);
-    }
-}
+            //lost point
+            this->setPoints(this->getPoints() - 10.f);
+            this->health -= 1;;
+            std::cout << " Points: \t" << this->getPoints() << " health: \t" << this->health << "\n ";
 
+        }
+    }//Fin de For Enemies_Move
+
+    //Check if clicked upon
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (!this->mouseHead) {
+            this->mouseHead = true;
+            bool deleted = false;
+            for (size_t i = 0; i < enemies.size() && !deleted; i++)
+                if (this->enemies[i].getGlobalBounds().contains(this->mousePosView)) {
+                    //Delete the enemy
+                    deleted = true;
+                    this->enemies.erase(this->enemies.begin() + i);
+                    //win point
+                    this->setPoints(this->getPoints() + 10.f);
+                    std::cout << " Points: \t" << this->getPoints() << " health: \t" << this->health << "\n ";
+                }
+        }
+    }
+    else {
+        this->mouseHead = false;
+
+    }
+    //Delete  Enemy   
+}
+//======    DRAW    ======
 void gamePlay::drawEnemies()
 {
     for (auto& e : this->enemies) {

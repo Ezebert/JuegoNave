@@ -15,7 +15,7 @@ int main()
     gamePlay game; 
 
     //Game Loop
-    while (game.runnig())
+    while (game.runnig() && !game.getEndGame())
     {
         //Update
         game.update();
