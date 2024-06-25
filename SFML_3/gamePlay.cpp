@@ -1,12 +1,15 @@
 #include "gamePlay.h"
 #include <Windows.h>
 #include <iostream>
+#include <sstream>.
 
 gamePlay::gamePlay()
 {
     this->initVariables();
     this->initWindows();
     this->initEnemy();
+    this->initFonts();
+    this->initText();
 }
 
 gamePlay::~gamePlay()
@@ -29,8 +32,12 @@ void gamePlay::update()
 {
   this->updateEvent(); //PoolEvents
 
-  this->updateMousePosition();
-  this->updateEnemy();
+  if (!this->endGame) {
+      this->updateMousePosition();
+      this->updateEnemy();
+      this->updateText();
+  }
+  
   
   //End Game condition
   if (this->health <= 0)
@@ -43,7 +50,8 @@ void gamePlay::render(){
     this->window->clear();
     //Draw obj
     //this->window->draw(this->enemy);
-    this->drawEnemies();
+    this->drawEnemies(*this->window);
+    this->drawText(*this->window);
     this->window->display();
 }
 
@@ -88,6 +96,19 @@ void gamePlay::initWindows(){
 
 	this->window = new sf::RenderWindow(this->videoMode, "GAME - RUN", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
+}
+void gamePlay::initFonts()
+{
+    if (this->font.loadFromFile("../font/SPACE.ttf")) {
+        std::cout<< " ERROR::GAME::InitFont";
+    }
+}
+void gamePlay::initText()
+{
+    this->text.setFont(this->font);
+    this->text.setCharacterSize(15);//Max de caracteres
+    this->text.setFillColor(sf::Color::White);
+    this->text.setString("N/D");
 }
 void gamePlay::initEnemy()
 {
@@ -139,6 +160,7 @@ void gamePlay::updateMousePosition()
     this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindows);//posición convertida en coordenadas del mundo 2D
 }
 void gamePlay::updateEnemy()
+
 {
     /*Actualiza el temporizador de aparición de enemigos 
     y genera enemigos cuando la cantidad total de enemigos es menor que el máximo*/
@@ -191,10 +213,23 @@ void gamePlay::updateEnemy()
     }
     //Delete  Enemy   
 }
+void gamePlay::updateText()
+{
+    std::stringstream ss;
+    ss << "Points: " << this->getPoints()<< "\n"
+        <<"Health: "<<this->health<<"\n";
+    this->text.setString(ss.str());
+}
+
 //======    DRAW    ======
-void gamePlay::drawEnemies()
+void gamePlay::drawEnemies(sf::RenderTarget& target)
 {
     for (auto& e : this->enemies) {
-        this->window->draw(e);
+        target.draw(e);
     }
+}
+
+void gamePlay::drawText(sf::RenderTarget& target)
+{
+    target.draw(this->text);
 }

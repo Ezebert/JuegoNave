@@ -18,6 +18,10 @@ private:
 	//Game Clases
 	std::vector<sf::RectangleShape> enemies;
 	sf::RectangleShape enemy;
+	//Resources
+	sf::Font font;
+	//Text
+	 sf::Text text;
 	//Game Logic
 	bool endGame;
 	int health;
@@ -46,13 +50,17 @@ protected:
 	//init
 	void initVariables();
 	void initWindows();
+	void initFonts();
+	void initText();
 	void initEnemy();
 	//Update
 	void updateEvent();
 	void updateMousePosition();
 	void updateEnemy();
+	void updateText();
 	//Draw
-	void drawEnemies();
+	void drawEnemies(sf::RenderTarget& target);
+	void drawText(sf::RenderTarget& target);
 
 };
 
