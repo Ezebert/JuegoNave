@@ -73,7 +73,27 @@ void gamePlay::spawnEnemy()
         0.f
 //        static_cast<float>(rand() % static_cast<int>(this->window->getSize().y - this->enemy.getSize().y))
             );
-    this->enemy.setFillColor(sf::Color::Yellow);
+
+    int type = rand() % 4;//(0-3)
+    switch (type)
+    {
+    case 1:
+        this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+        this->enemy.setFillColor(sf::Color::Cyan);//cuerpo
+        break;
+    case 2:
+        this->enemy.setSize(sf::Vector2f(30.f, 30.f));
+        this->enemy.setFillColor(sf::Color::Red);//cuerpo
+        break;
+    case 3:
+        this->enemy.setSize(sf::Vector2f(50.f, 50.f));
+        this->enemy.setFillColor(sf::Color::Yellow);//cuerpo
+        break;
+    case 0:
+        this->enemy.setSize(sf::Vector2f(70.f, 70.f));
+        this->enemy.setFillColor(sf::Color::Green);//cuerpo
+        break;
+    }
     //Add enemy 
     this->enemies.push_back(this->enemy);
 }
@@ -82,9 +102,9 @@ void gamePlay::initVariables(){
 	this->window = nullptr;
     //Game Logic
     this->endGame = false;
-    this->health = 10;
+    this->health = 100;
     this->points=0;
-    this->enemySpawnTimerMax = 10.f;;
+    this->enemySpawnTimerMax = 20.f;;
     this->enemySpawnTimer = this->enemySpawnTimerMax;
     this->maxEnemy = 5;
     this->mouseHead = false;
@@ -115,9 +135,9 @@ void gamePlay::initEnemy()
     this->enemy.setPosition(20.f,10.f);//(x , y)
     this->enemy.setSize(sf::Vector2f(100.f,100.f));
     this->enemy.setScale(sf::Vector2f(0.5f,0.5f)); //reduce tamaño
-    this->enemy.setFillColor(sf::Color::Red);//cuerpo
+    this->enemy.setFillColor(sf::Color::White);//cuerpo
     this->enemy.setOutlineColor(sf::Color::Green);//contorno
-    this->enemy.setOutlineThickness(10.f); // Grosor del contorno
+    this->enemy.setOutlineThickness(1.f); // Grosor del contorno
 }
 //======    UPDATE    ======
 void gamePlay::updateEvent()
@@ -198,12 +218,21 @@ void gamePlay::updateEnemy()
             bool deleted = false;
             for (size_t i = 0; i < enemies.size() && !deleted; i++)
                 if (this->enemies[i].getGlobalBounds().contains(this->mousePosView)) {
+                    
+                    //win point
+                    if(this->enemies[i].getFillColor()==sf::Color::Cyan)
+                        this->setPoints(this->getPoints() + 30.f);
+                    else if (this->enemies[i].getFillColor() == sf::Color::Green)
+                        this->setPoints(this->getPoints() + 50.f);
+                    else if (this->enemies[i].getFillColor() == sf::Color::Yellow)
+                        this->setPoints(this->getPoints() + 70.f);
+                    else if (this->enemies[i].getFillColor() == sf::Color::Red)
+                        this->setPoints(this->getPoints() + 100.f);
+                    //std::cout << " Points: \t" << this->getPoints() << " health: \t" << this->health << "\n ";
+                    
                     //Delete the enemy
                     deleted = true;
                     this->enemies.erase(this->enemies.begin() + i);
-                    //win point
-                    this->setPoints(this->getPoints() + 10.f);
-                    std::cout << " Points: \t" << this->getPoints() << " health: \t" << this->health << "\n ";
                 }
         }
     }
